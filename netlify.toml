@@ -1,7 +1,9 @@
 [build]
-  publish = "/"
+  publish = "public"
+  command = "curl -fsSL https://cecil.app/cecil.phar -o cecil && chmod +x cecil && ./cecil build"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+

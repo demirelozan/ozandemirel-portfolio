@@ -1,13 +1,7 @@
 [build]
-  publish = "public"
-  command = "cecil build"
-
+  publish = "/"
 
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
-[build]
-
-[[plugins]]
-  package = "netlify-plugin-cecil"

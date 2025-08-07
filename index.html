@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,6 +11,9 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Netlify Identity -->
+    <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
     
     <style>
         * {
@@ -33,7 +34,6 @@
             --link: #60A5FA;
             --border: rgba(255, 255, 255, 0.08);
             --success: #10B981;
-            --error: #EF4444;
         }
 
         body {
@@ -43,10 +43,9 @@
             min-height: 100vh;
             line-height: 1.6;
             overflow-x: hidden;
-            position: relative;
         }
 
-        /* Background gradient effect */
+        /* Background gradient */
         body::before {
             content: '';
             position: fixed;
@@ -55,8 +54,7 @@
             right: 0;
             bottom: 0;
             background: radial-gradient(circle at 20% 50%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
-                        radial-gradient(circle at 80% 80%, rgba(96, 165, 250, 0.05) 0%, transparent 50%),
-                        radial-gradient(circle at 40% 20%, rgba(245, 158, 11, 0.05) 0%, transparent 50%);
+                        radial-gradient(circle at 80% 80%, rgba(96, 165, 250, 0.05) 0%, transparent 50%);
             pointer-events: none;
             z-index: 0;
         }
@@ -81,15 +79,10 @@
             pointer-events: none;
         }
 
-        .loader-content {
-            text-align: center;
-        }
-
         .music-bars {
             display: flex;
             gap: 4px;
             justify-content: center;
-            margin-bottom: 1rem;
         }
 
         .bar {
@@ -116,7 +109,6 @@
             width: 100%;
             background: rgba(10, 10, 10, 0.8);
             backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
             z-index: 1000;
             padding: 1.25rem 0;
             border-bottom: 1px solid var(--border);
@@ -146,24 +138,10 @@
             -webkit-text-fill-color: transparent;
             text-decoration: none;
             transition: transform 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
 
         .logo:hover {
             transform: scale(1.05);
-        }
-
-        .logo-icon {
-            width: 24px;
-            height: 24px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
         }
 
         .nav-links {
@@ -203,28 +181,96 @@
             color: var(--text-primary);
         }
 
-        /* Hero Section */
+        /* Hero Section with Profile */
         .hero {
             margin-top: 70px;
             padding: 6rem 2rem 4rem;
-            text-align: center;
-            min-height: 60vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
             position: relative;
             z-index: 1;
         }
 
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            margin-bottom: 1.5rem;
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-profile {
+            flex: 0 0 auto;
+        }
+
+        .profile-image {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid var(--accent);
+            box-shadow: 0 20px 40px rgba(245, 158, 11, 0.3);
+            animation: fadeInLeft 0.8s ease;
+        }
+
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-text {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .hero-text h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            margin-bottom: 1rem;
             font-weight: 800;
             letter-spacing: -0.03em;
-            background: linear-gradient(to right, var(--text-primary) 0%, var(--text-secondary) 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
             animation: fadeInUp 0.8s ease;
+        }
+
+        .hero-text .subtitle {
+            font-size: 1.5rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+            animation: fadeInUp 0.8s ease 0.1s both;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            line-height: 1.8;
+            animation: fadeInUp 0.8s ease 0.2s both;
+        }
+
+        .hero-text ul {
+            list-style: none;
+            color: var(--text-secondary);
+            animation: fadeInUp 0.8s ease 0.3s both;
+        }
+
+        .hero-text ul li {
+            padding: 0.25rem 0;
+        }
+
+        .hero-text ul li::before {
+            content: "→ ";
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
         }
 
         @keyframes fadeInUp {
@@ -238,19 +284,11 @@
             }
         }
 
-        .hero p {
-            font-size: 1.25rem;
-            color: var(--text-secondary);
-            max-width: 650px;
-            margin: 0 auto 3rem;
-            animation: fadeInUp 0.8s ease 0.2s both;
-            line-height: 1.8;
-        }
-
+        /* Social Links */
         .social-links {
             display: flex;
             gap: 1rem;
-            justify-content: center;
+            margin-top: 2rem;
             animation: fadeInUp 0.8s ease 0.4s both;
         }
 
@@ -264,7 +302,6 @@
             border: 1px solid var(--border);
             border-radius: 50%;
             color: var(--text-secondary);
-            text-decoration: none;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
@@ -301,13 +338,17 @@
             z-index: 1;
         }
 
-        /* Portfolio Section */
-        .portfolio {
-            max-width: 1200px;
-            margin: 0 auto;
+        /* Image Gallery Carousel */
+        .gallery-section {
             padding: 4rem 2rem;
+            background: var(--bg-secondary);
             position: relative;
             z-index: 1;
+        }
+
+        .gallery-container {
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .section-title {
@@ -316,8 +357,6 @@
             text-align: center;
             font-weight: 700;
             position: relative;
-            display: inline-block;
-            width: 100%;
         }
 
         .section-title::after {
@@ -330,6 +369,114 @@
             height: 4px;
             background: linear-gradient(90deg, var(--accent), var(--accent-hover));
             border-radius: 2px;
+        }
+
+        .gallery-carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+
+        .gallery-wrapper {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-slide {
+            width: 100%;
+            flex-shrink: 0;
+            position: relative;
+            height: 500px;
+        }
+
+        .gallery-slide img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 100%);
+            padding: 2rem;
+            color: white;
+        }
+
+        .gallery-overlay h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .gallery-overlay p {
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .gallery-controls {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 2rem;
+            pointer-events: none;
+        }
+
+        .gallery-btn {
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            border: none;
+            border-radius: 50%;
+            color: var(--bg-primary);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            pointer-events: all;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-btn:hover {
+            background: var(--accent-hover);
+            transform: scale(1.1);
+        }
+
+        .gallery-indicators {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 1.5rem;
+        }
+
+        .indicator {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .indicator.active {
+            background: var(--accent);
+            width: 30px;
+            border-radius: 5px;
+        }
+
+        /* Portfolio Section */
+        .portfolio {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 1;
         }
 
         .filter-buttons {
@@ -516,9 +663,6 @@
             border-radius: 6px;
             font-size: 0.8rem;
             color: var(--success);
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
         }
 
         .project-link {
@@ -536,7 +680,6 @@
             gap: 0.75rem;
         }
 
-        /* Sound Player */
         .sound-player {
             margin-top: 1rem;
             padding-top: 1rem;
@@ -573,36 +716,17 @@
             backdrop-filter: blur(10px);
         }
 
-        .about-header {
-            display: flex;
-            gap: 3rem;
-            align-items: center;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-
-        .about-avatar {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            flex-shrink: 0;
-        }
-
-        .about-intro h2 {
+        .about-content h2 {
             font-size: 2rem;
             margin-bottom: 0.5rem;
             color: var(--text-primary);
         }
 
-        .about-intro .tagline {
+        .about-content .tagline {
             color: var(--accent);
             font-size: 1.1rem;
             font-weight: 500;
+            margin-bottom: 2rem;
         }
 
         .about-content p {
@@ -713,31 +837,11 @@
             font-size: 1rem;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.6s ease, height 0.6s ease;
         }
 
         .submit-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 10px 20px rgba(245, 158, 11, 0.3);
-        }
-
-        .submit-btn:active::before {
-            width: 300px;
-            height: 300px;
         }
 
         /* Footer */
@@ -748,11 +852,6 @@
             color: var(--text-secondary);
             position: relative;
             z-index: 1;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
         .footer-links {
@@ -785,78 +884,6 @@
         .mobile-menu-toggle svg {
             width: 24px;
             height: 24px;
-        }
-
-        /* Toast Notification */
-        .toast {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-left: 4px solid var(--success);
-            padding: 1rem 1.5rem;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            transform: translateX(400px);
-            transition: transform 0.3s ease;
-            z-index: 2000;
-            backdrop-filter: blur(10px);
-        }
-
-        .toast.show {
-            transform: translateX(0);
-        }
-
-        .toast.error {
-            border-left-color: var(--error);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                background: rgba(10, 10, 10, 0.98);
-                flex-direction: column;
-                padding: 2rem;
-                gap: 1.5rem;
-                border-bottom: 1px solid var(--border);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .project-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .about-header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .skills-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .social-links {
-                flex-wrap: wrap;
-            }
         }
 
         /* Admin Button */
@@ -907,34 +934,69 @@
             transform: translateY(0);
         }
 
-        .scroll-top:hover {
-            background: var(--accent-hover);
-            transform: translateY(-3px);
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(10, 10, 10, 0.98);
+                flex-direction: column;
+                padding: 2rem;
+                gap: 1.5rem;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-image {
+                width: 200px;
+                height: 200px;
+            }
+
+            .project-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .gallery-slide {
+                height: 300px;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
 <body>
     <!-- Loading Screen -->
     <div class="loader" id="loader">
-        <div class="loader-content">
-            <div class="music-bars">
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-                <div class="bar"></div>
-            </div>
-            <p style="color: var(--text-secondary);">Loading sounds...</p>
+        <div class="music-bars">
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
+            <div class="bar"></div>
         </div>
     </div>
 
     <!-- Navigation -->
     <nav id="navbar">
         <div class="nav-container">
-            <a href="#home" class="logo">
-                <span class="logo-icon">🎵</span>
-                OZAN DEMIREL
-            </a>
+            <a href="#home" class="logo">OZAN DEMIREL</a>
             <button class="mobile-menu-toggle" onclick="toggleMobileMenu()">
                 <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
@@ -948,26 +1010,78 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
+    <!-- Hero Section with Profile Image -->
     <section class="hero">
-        <h1>Film Composer & Songwriter</h1>
-        <p>Creating emotional soundscapes that bring stories to life through music</p>
-        <div class="social-links">
-            <a href="https://soundcloud.com/ozan-417880832" target="_blank" title="SoundCloud">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M11.56 8.87V17h8.76c1.85 0 3.35-1.5 3.35-3.35 0-1.85-1.5-3.35-3.35-3.35-.18 0-.37.02-.55.05-.65-2.34-2.82-4.05-5.36-4.05-1.49 0-2.85.59-3.85 1.57zm-1.33.71c-.29 0-.54.24-.54.53v6.37c0 .29.24.53.54.53s.54-.24.54-.53v-6.37c0-.29-.25-.53-.54-.53zm-2.66 1.78c-.29 0-.54.24-.54.53v4.59c0 .29.24.53.54.53s.54-.24.54-.53v-4.59c0-.29-.25-.53-.54-.53zm-1.33.71c-.29 0-.54.24-.54.53v3.17c0 .29.24.53.54.53s.54-.24.54-.53v-3.17c0-.29-.25-.53-.54-.53zm-2.67 1.78c-.29 0-.53.24-.53.53v1.39c0 .29.24.53.53.53s.53-.24.53-.53v-1.39c0-.29-.24-.53-.53-.53z"/>
-                </svg>
-            </a>
-            <a href="https://instagram.com/ozandemirl" target="_blank" title="Instagram">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.405a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/>
-                </svg>
-            </a>
-            <a href="mailto:info@ozandemirel.me" title="Email">
-                <svg viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                </svg>
-            </a>
+        <div class="hero-content">
+            <div class="hero-profile">
+                <div class="profile-image">
+                    <img src="https://i.imgur.com/Kxi8Kyi.jpg" alt="Ozan Demirel">
+                </div>
+            </div>
+            <div class="hero-text">
+                <h1>Ozan Demirel</h1>
+                <p class="subtitle">Film & Media Composer</p>
+                <p>Creating emotional soundscapes that bring stories to life through music. Specializing in orchestral and electronic fusion for films, games, and commercials.</p>
+                <ul>
+                    <li>Film, TV & Game Composer</li>
+                    <li>Orchestral Scoring</li>
+                    <li>Sound Design</li>
+                </ul>
+                <div class="social-links">
+                    <a href="https://soundcloud.com/ozan-417880832" target="_blank" title="SoundCloud">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M11.56 8.87V17h8.76c1.85 0 3.35-1.5 3.35-3.35 0-1.85-1.5-3.35-3.35-3.35-.18 0-.37.02-.55.05-.65-2.34-2.82-4.05-5.36-4.05-1.49 0-2.85.59-3.85 1.57zm-1.33.71c-.29 0-.54.24-.54.53v6.37c0 .29.24.53.54.53s.54-.24.54-.53v-6.37c0-.29-.25-.53-.54-.53zm-2.66 1.78c-.29 0-.54.24-.54.53v4.59c0 .29.24.53.54.53s.54-.24.54-.53v-4.59c0-.29-.25-.53-.54-.53zm-1.33.71c-.29 0-.54.24-.54.53v3.17c0 .29.24.53.54.53s.54-.24.54-.53v-3.17c0-.29-.25-.53-.54-.53zm-2.67 1.78c-.29 0-.53.24-.53.53v1.39c0 .29.24.53.53.53s.53-.24.53-.53v-1.39c0-.29-.24-.53-.53-.53z"/>
+                        </svg>
+                    </a>
+                    <a href="https://instagram.com/ozandemirl" target="_blank" title="Instagram">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zM5.838 12a6.162 6.162 0 1 1 12.324 0 6.162 6.162 0 0 1-12.324 0zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm4.965-10.405a1.44 1.44 0 1 1 2.881.001 1.44 1.44 0 0 1-2.881-.001z"/>
+                        </svg>
+                    </a>
+                    <a href="mailto:info@ozandemirel.me" title="Email">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Gallery Section -->
+    <section class="gallery-section">
+        <div class="gallery-container">
+            <h2 class="section-title">Studio & Live Sessions</h2>
+            <div class="gallery-carousel">
+                <div class="gallery-wrapper" id="galleryWrapper">
+                    <div class="gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=1200&h=500&fit=crop" alt="Studio Session">
+                        <div class="gallery-overlay">
+                            <h3>Recording Session</h3>
+                            <p>Working on orchestral arrangements in the studio</p>
+                        </div>
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=1200&h=500&fit=crop" alt="Live Performance">
+                        <div class="gallery-overlay">
+                            <h3>Live Performance</h3>
+                            <p>Conducting the orchestra for a film score recording</p>
+                        </div>
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1519892300165-cb5542fb47c7?w=1200&h=500&fit=crop" alt="Studio Setup">
+                        <div class="gallery-overlay">
+                            <h3>Studio Setup</h3>
+                            <p>My creative workspace where the magic happens</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="gallery-controls">
+                    <button class="gallery-btn" onclick="changeSlide(-1)">‹</button>
+                    <button class="gallery-btn" onclick="changeSlide(1)">›</button>
+                </div>
+            </div>
+            <div class="gallery-indicators" id="galleryIndicators"></div>
         </div>
     </section>
 
@@ -983,53 +1097,7 @@
         </div>
 
         <div class="project-grid" id="projectGrid">
-            <!-- Sample Project Card -->
-            <div class="project-card" data-category="film">
-                <div class="project-image-wrapper">
-                    <img src="https://via.placeholder.com/400x260/1a1a1a/f59e0b?text=Your+Film+Here" alt="Project Title" class="project-image">
-                    <div class="project-overlay">
-                        <div class="play-button">▶</div>
-                    </div>
-                </div>
-                <div class="project-info">
-                    <div class="project-meta">
-                        <span class="project-category">Film</span>
-                        <span class="project-year">2024</span>
-                    </div>
-                    <h3 class="project-title">Your First Project</h3>
-                    <p class="project-description">This is where your film description will go. Add details about the story, your role, and the musical approach.</p>
-                    <div class="project-awards">
-                        <span class="award-badge">🏆 Best Original Score</span>
-                        <span class="award-badge">🎬 Official Selection</span>
-                    </div>
-                    <div class="sound-player">
-                        <!-- SoundCloud embed will go here -->
-                        <iframe class="soundcloud-embed" scrolling="no" frameborder="no" allow="autoplay" 
-                            src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/YOUR_TRACK_ID&color=%23f59e0b&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false">
-                        </iframe>
-                    </div>
-                    <a href="#" class="project-link" target="_blank">View Project →</a>
-                </div>
-            </div>
-
-            <!-- Placeholder for more projects -->
-            <div class="project-card" data-category="game">
-                <div class="project-image-wrapper">
-                    <img src="https://via.placeholder.com/400x260/1a1a1a/60a5fa?text=Game+Music" alt="Game Project" class="project-image">
-                    <div class="project-overlay">
-                        <div class="play-button">▶</div>
-                    </div>
-                </div>
-                <div class="project-info">
-                    <div class="project-meta">
-                        <span class="project-category">Game</span>
-                        <span class="project-year">2024</span>
-                    </div>
-                    <h3 class="project-title">Game Music Project</h3>
-                    <p class="project-description">Interactive music system for an indie game, featuring adaptive layers and emotional progression.</p>
-                    <a href="#" class="project-link" target="_blank">Listen on SoundCloud →</a>
-                </div>
-            </div>
+            <!-- Projects will be loaded here dynamically -->
         </div>
     </section>
 
@@ -1037,13 +1105,8 @@
     <section class="about-section" id="about">
         <h2 class="section-title">About</h2>
         <div class="about-content">
-            <div class="about-header">
-                <div class="about-avatar">🎼</div>
-                <div class="about-intro">
-                    <h2>Ozan Demirel</h2>
-                    <p class="tagline">Composer & Sound Designer</p>
-                </div>
-            </div>
+            <h2>Ozan Demirel</h2>
+            <p class="tagline">Composer & Sound Designer</p>
             
             <p>
                 I'm a passionate composer specializing in creating combining western & eastern soundscapes for visual media. 
@@ -1084,7 +1147,7 @@
     <section class="contact-section" id="contact">
         <h2 class="section-title">Let's Create Together</h2>
         <div class="contact-form">
-            <form action="https://formspree.io/f/xkgzpbzb" method="POST" id="contactForm">
+            <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST" id="contactForm">
                 <div class="form-group">
                     <label for="name">Your Name</label>
                     <input type="text" id="name" name="name" required>
@@ -1114,37 +1177,103 @@
 
     <!-- Footer -->
     <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="https://soundcloud.com/ozan-417880832" target="_blank">SoundCloud</a>
-                <a href="https://instagram.com/ozandemirl" target="_blank">Instagram</a>
-                <a href="mailto:info@ozandemirel.me">Email</a>
-            </div>
-            <p>&copy; 2024 Ozan Demirel. All rights reserved.</p>
+        <div class="footer-links">
+            <a href="https://soundcloud.com/ozan-417880832" target="_blank">SoundCloud</a>
+            <a href="https://instagram.com/ozandemirl" target="_blank">Instagram</a>
+            <a href="mailto:info@ozandemirel.me">Email</a>
         </div>
+        <p>&copy; 2024 Ozan Demirel. All rights reserved.</p>
     </footer>
 
-    <!-- Admin Button (only visible to you) -->
-    <a href="/admin" class="admin-btn" style="display: none;">Admin Panel</a>
+    <!-- Admin Button -->
+    <a href="/admin" class="admin-btn">Admin Panel</a>
 
-    <!-- Scroll to Top Button -->
+    <!-- Scroll to Top -->
     <div class="scroll-top" id="scrollTop" onclick="scrollToTop()">
         <svg width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
             <path d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/>
         </svg>
     </div>
 
-    <!-- Toast Notification -->
-    <div class="toast" id="toast">
-        <span id="toastMessage">Message sent successfully!</span>
-    </div>
-
     <script>
+        // Sample project data (will be replaced with CMS data)
+        const projectsData = [
+            {
+                title: "The Silent Echo",
+                category: "film",
+                year: "2024",
+                description: "A haunting orchestral score for a psychological thriller exploring the depths of human memory.",
+                image: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=400&h=260&fit=crop",
+                awards: ["Best Original Score", "Festival Selection"],
+                link: "#",
+                soundcloud: "1234567"
+            },
+            {
+                title: "Neon Dreams",
+                category: "game",
+                year: "2024",
+                description: "Electronic soundtrack for a cyberpunk adventure game featuring adaptive music layers.",
+                image: "https://images.unsplash.com/photo-1511512578047-dfb367046420?w=400&h=260&fit=crop",
+                awards: ["IGF Audio Excellence"],
+                link: "#",
+                soundcloud: "2345678"
+            },
+            {
+                title: "Brand Evolution",
+                category: "commercial",
+                year: "2024",
+                description: "Modern orchestral piece for a major tech company's rebranding campaign.",
+                image: "https://images.unsplash.com/photo-1492619375914-88005aa9e8fb?w=400&h=260&fit=crop",
+                awards: [],
+                link: "#",
+                soundcloud: "3456789"
+            }
+        ];
+
+        // Gallery functionality
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.gallery-slide');
+        const totalSlides = slides.length;
+
+        function initGallery() {
+            const indicatorsContainer = document.getElementById('galleryIndicators');
+            for (let i = 0; i < totalSlides; i++) {
+                const indicator = document.createElement('div');
+                indicator.className = i === 0 ? 'indicator active' : 'indicator';
+                indicator.onclick = () => goToSlide(i);
+                indicatorsContainer.appendChild(indicator);
+            }
+        }
+
+        function updateGallery() {
+            const wrapper = document.getElementById('galleryWrapper');
+            wrapper.style.transform = `translateX(-${currentSlide * 100}%)`;
+            
+            document.querySelectorAll('.indicator').forEach((ind, i) => {
+                ind.classList.toggle('active', i === currentSlide);
+            });
+        }
+
+        function changeSlide(direction) {
+            currentSlide = (currentSlide + direction + totalSlides) % totalSlides;
+            updateGallery();
+        }
+
+        function goToSlide(index) {
+            currentSlide = index;
+            updateGallery();
+        }
+
+        // Auto-play gallery
+        setInterval(() => changeSlide(1), 5000);
+
         // Loading screen
         window.addEventListener('load', function() {
             setTimeout(() => {
                 document.getElementById('loader').classList.add('hidden');
             }, 1000);
+            initGallery();
+            loadProjects();
         });
 
         // Navigation scroll effect
@@ -1158,7 +1287,6 @@
                 navbar.classList.remove('scrolled');
             }
             
-            // Show/hide scroll to top button
             if (window.scrollY > 300) {
                 scrollTop.classList.add('visible');
             } else {
@@ -1182,12 +1310,10 @@
 
         // Section navigation
         function showSection(section) {
-            // Hide all sections
             document.getElementById('home').style.display = section === 'home' ? 'block' : 'none';
             document.getElementById('about').style.display = section === 'about' ? 'block' : 'none';
             document.getElementById('contact').style.display = section === 'contact' ? 'block' : 'none';
             
-            // Update active nav link
             document.querySelectorAll('.nav-link').forEach(link => {
                 link.classList.remove('active');
                 if (link.getAttribute('href') === '#' + section) {
@@ -1195,22 +1321,75 @@
                 }
             });
             
-            // Close mobile menu
             document.getElementById('navLinks').classList.remove('active');
             
-            // Scroll to top smoothly
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+            if (section !== 'home') {
+                window.scrollTo({ top: 70, behavior: 'smooth' });
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+
+        // Load projects
+        function loadProjects(filter = 'all') {
+            const grid = document.getElementById('projectGrid');
+            grid.innerHTML = '';
+            
+            const filteredProjects = filter === 'all' 
+                ? projectsData 
+                : projectsData.filter(p => p.category === filter);
+            
+            filteredProjects.forEach((project, index) => {
+                const card = createProjectCard(project);
+                setTimeout(() => {
+                    grid.appendChild(card);
+                    card.style.animation = 'fadeIn 0.6s ease forwards';
+                }, index * 100);
             });
+        }
+
+        // Create project card
+        function createProjectCard(project) {
+            const card = document.createElement('div');
+            card.className = 'project-card';
+            card.dataset.category = project.category;
+            
+            card.innerHTML = `
+                <div class="project-image-wrapper">
+                    <img src="${project.image}" alt="${project.title}" class="project-image">
+                    <div class="project-overlay">
+                        <div class="play-button">▶</div>
+                    </div>
+                </div>
+                <div class="project-info">
+                    <div class="project-meta">
+                        <span class="project-category">${project.category}</span>
+                        <span class="project-year">${project.year}</span>
+                    </div>
+                    <h3 class="project-title">${project.title}</h3>
+                    <p class="project-description">${project.description}</p>
+                    ${project.awards.length > 0 ? `
+                        <div class="project-awards">
+                            ${project.awards.map(award => `<span class="award-badge">🏆 ${award}</span>`).join('')}
+                        </div>
+                    ` : ''}
+                    ${project.soundcloud ? `
+                        <div class="sound-player">
+                            <iframe class="soundcloud-embed" scrolling="no" frameborder="no" allow="autoplay" 
+                                src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/${project.soundcloud}&color=%23f59e0b&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false">
+                            </iframe>
+                        </div>
+                    ` : ''}
+                    <a href="${project.link}" class="project-link" target="_blank">View Project →</a>
+                </div>
+            `;
+            
+            return card;
         }
 
         // Filter projects
         function filterProjects(category) {
-            const projects = document.querySelectorAll('.project-card');
             const buttons = document.querySelectorAll('.filter-btn');
-            
-            // Update active button
             buttons.forEach(btn => {
                 btn.classList.remove('active');
                 const btnText = btn.querySelector('span').textContent.toLowerCase();
@@ -1223,91 +1402,31 @@
                 }
             });
             
-            // Filter projects with animation
-            projects.forEach((project, index) => {
-                if (category === 'all' || project.dataset.category === category) {
-                    setTimeout(() => {
-                        project.style.display = 'block';
-                        project.style.animation = 'fadeIn 0.6s ease forwards';
-                    }, index * 50);
-                } else {
-                    project.style.display = 'none';
+            loadProjects(category);
+        }
+
+        // Contact form
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Thank you for your message! I will get back to you soon.');
+            this.reset();
+        });
+
+        // Netlify Identity
+        if (window.netlifyIdentity) {
+            window.netlifyIdentity.on("init", user => {
+                if (!user) {
+                    window.netlifyIdentity.on("login", () => {
+                        document.location.href = "/admin/";
+                    });
                 }
             });
         }
-
-        // Show toast notification
-        function showToast(message, type = 'success') {
-            const toast = document.getElementById('toast');
-            const toastMessage = document.getElementById('toastMessage');
-            
-            toastMessage.textContent = message;
-            toast.className = 'toast show';
-            if (type === 'error') {
-                toast.classList.add('error');
-            }
-            
-            setTimeout(() => {
-                toast.classList.remove('show');
-            }, 3000);
-        }
-
-        // Contact form submission
-        document.getElementById('contactForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // Here you would normally send the form data
-            // For now, we'll just show a success message
-            showToast('Thank you for your message! I will get back to you soon.');
-            this.reset();
-        });
 
         // Initialize
         document.addEventListener('DOMContentLoaded', function() {
             showSection('home');
-            
-            // Add smooth scroll for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const target = document.querySelector(this.getAttribute('href'));
-                    if (target) {
-                        target.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
         });
-
-        // Intersection Observer for animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeIn 0.6s ease forwards';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, observerOptions);
-
-        // Observe all project cards
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.project-card').forEach(card => {
-                observer.observe(card);
-            });
-        });
-
-        // Show admin button if URL contains ?admin=true
-        if (window.location.search.includes('admin=true')) {
-            document.querySelector('.admin-btn').style.display = 'block';
-        }
     </script>
 </body>
 </html>
-

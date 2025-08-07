@@ -1,2 +1,0 @@
-"# ozandemirel-portfolio" 
-"# ozandemirel-portfolio" 
